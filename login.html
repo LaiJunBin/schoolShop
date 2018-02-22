@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登入</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script>
+        // $(function(){
+
+        // });
+    </script>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div id="login">
+            <form action="login.php" method="post" class="form-group">
+                登入
+                <table align="center">
+                    <tr>
+                        <td>
+                            <label for="username">帳號:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">密碼:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="password" name="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-success" type="submit">登入</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;" align="left">
+                            <a href="./index.html">回首頁</a>
+
+                        </td>
+                        <td style="font-size:12px;" align="right">
+                            <a href="./register.html">沒有帳號嗎?註冊</a>
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

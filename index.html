@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>校園小木屋點餐系統</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script>
+        $(function () {
+            window.onresize = layout;
+            function layout() {
+                var height = $(document).height();
+                var width = $(document).width();
+                var imgWidth = Math.floor(width / 3.76);
+                var imgHeight = Math.floor(height / 3.68);
+                var imgTop = Math.floor(height / 1.836);
+                var stepWidth = Math.floor(width / 20.78);
+                $('main img').css({
+                    'top': imgTop,
+                    'width': imgWidth,
+                    'height': imgHeight
+                });
+                $('main img').each(function (i, dom) {
+                    $(dom).css('left',  stepWidth * (i + 1) + imgWidth * i);
+                });
+            }
+
+            layout();
+        });
+    </script>
+</head>
+
+<body class="container-fluid">
+    <main id="menu">
+        <a href="order.php">
+            <img src="./images/orderBtn.png" alt="點餐系統">
+        </a>
+        <a href="view.html">
+            <img  src="./images/viewBtn.png" alt="查看菜單">
+        </a>
+        <a href="admin.html">
+            <img src="./images/loginBtn.png" alt="管理登入">
+        </a>
+    </main>
+</body>
+
+</html>

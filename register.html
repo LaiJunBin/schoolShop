@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>註冊</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <script>
+        // $(function(){
+
+        // });
+    </script>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div id="register">
+            <form action="register.php" method="post" class="form-group">
+                註冊
+                <table align="center">
+                    <tr>
+                        <td>
+                            <label for="username">學號或教師代碼:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="category">科
+                                <span style='user-select:none'>　　　　　</span>別:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="category">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="gender">性
+                                <span style='user-select:none'>　　　　　</span>別:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="gender">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">密
+                                <span style='user-select:none'>　　　　　</span>碼:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="password" name="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="passwordAgain">請再次輸入密碼:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="passwordAgain">
+                        </td>
+                    </tr>
+                    <tr>
+                        <tr>
+                            <td>
+                                <label for="phone">請輸入手機號碼:</label>
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="phone">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-success" type="submit">註冊</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size:12px;" align="left">
+                                <a href="./index.html">回首頁</a>
+
+                            </td>
+                            <td style="font-size:12px;" align="right">
+                                <a href="./login.html">回到登入畫面</a>
+
+                            </td>
+                        </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
