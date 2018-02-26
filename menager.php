@@ -1,6 +1,10 @@
 <?php
     session_start();
     include('./pdoLink.php');
+    if(!isset($_SESSION['login'])){
+        header('location:index.html');
+        exit();
+    }
     $login = $_SESSION['login'];
     $data = explode('_',$login);
     $id = $data[0];
