@@ -29,7 +29,7 @@
                             <label for="username">學號或教師代碼:</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" name="username">
+                            <input class="form-control" required type="text" name="username">
                         </td>
                     </tr>
                     <tr>
@@ -38,7 +38,7 @@
                                 <span style='user-select:none'>　　　　　</span>別:</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" name="category">
+                            <input class="form-control" required type="text" name="category">
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +47,8 @@
                                 <span style='user-select:none'>　　　　　</span>別:</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" name="gender">
+                            <input style="height:20px;width:20px;" checked type="radio" name="gender" value="男">男
+                            <input style="height:20px;width:20px;" type="radio" name="gender" value="女">女
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +57,7 @@
                                 <span style='user-select:none'>　　　　　</span>碼:</label>
                         </td>
                         <td>
-                            <input class="form-control" type="password" name="password">
+                            <input required class="form-control" type="password" name="password">
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +65,7 @@
                             <label for="passwordAgain">請再次輸入密碼:</label>
                         </td>
                         <td>
-                            <input class="form-control" type="text" name="passwordAgain">
+                            <input required class="form-control" type="text" name="passwordAgain">
                         </td>
                     </tr>
                     <tr>
@@ -73,7 +74,7 @@
                                 <label for="phone">請輸入手機號碼:</label>
                             </td>
                             <td>
-                                <input class="form-control" type="text" name="phone">
+                                <input required class="form-control" type="text" name="phone">
                             </td>
                         </tr>
                         <tr>

@@ -12,5 +12,12 @@
     $select -> execute();
     $result = $select->fetch(PDO::FETCH_ASSOC);
     $level = $result['a_level'];
-    echo $level;
+    switch($level){
+        case 'root':
+            include('./menager/admin.php');
+            break;
+        default:
+            echo 123;
+            break;
+    }
 ?>
