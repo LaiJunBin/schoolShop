@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2018-02-22 11:14:08
+-- 產生時間： 2018-02-26 10:35:25
 -- 伺服器版本: 10.1.30-MariaDB
 -- PHP 版本： 7.2.2
 
@@ -45,6 +45,29 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`a_id`, `a_username`, `a_password`, `a_phone`, `a_level`, `a_date`, `a_key`) VALUES
 (1, 'admin', '12345', '12345', 'root', '2018-02-22 17:04:37', '170ef63d9498bcfe13727c717bce009d');
 
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `user`
+--
+
+CREATE TABLE `user` (
+  `u_id` int(10) NOT NULL,
+  `u_username` varchar(255) NOT NULL,
+  `u_category` varchar(255) NOT NULL,
+  `u_gender` varchar(1) NOT NULL,
+  `u_password` varchar(100) NOT NULL,
+  `u_phone` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 資料表的匯出資料 `user`
+--
+
+INSERT INTO `user` (`u_id`, `u_username`, `u_category`, `u_gender`, `u_password`, `u_phone`) VALUES
+(1, '123', '123', '1', '123', '123'),
+(3, '416000', '資料處理科', '男', '12345', '0912345678');
+
 --
 -- 已匯出資料表的索引
 --
@@ -56,6 +79,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`a_id`);
 
 --
+-- 資料表索引 `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`u_id`);
+
+--
 -- 在匯出的資料表使用 AUTO_INCREMENT
 --
 
@@ -63,7 +92,13 @@ ALTER TABLE `admin`
 -- 使用資料表 AUTO_INCREMENT `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `a_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `a_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用資料表 AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `u_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
