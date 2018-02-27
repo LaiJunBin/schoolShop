@@ -15,7 +15,6 @@
         $(function () {
             $("#register form")[0].addEventListener('submit', function (e) {
                 var username = reg.username.value;
-                var category = reg.category.value;
                 var password = reg.password.value;
                 var name = reg.name.value;
                 var password2 = reg.passwordAgain.value;
@@ -34,6 +33,7 @@
                         },
                         success: function (result) {
                             alert(result);
+                            $("#myModal").modal('toggle');
                         },
                         error: function (err) {
                             alert(err);

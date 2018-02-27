@@ -39,8 +39,8 @@
                             alert(result);
                             if (reg.admin == undefined)
                                 location.href = './login.html';
-                            // else
-                            //     $("#myModal").modal('hide');
+                            else
+                                $("#myModal").modal('toggle');
                         },
                         error: function (err) {
                             alert(err);
