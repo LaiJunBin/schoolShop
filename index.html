@@ -14,20 +14,15 @@
     <script>
         $(function () {
             window.onresize = layout;
+
             function layout() {
                 var height = $(document).height();
                 var width = $(document).width();
                 var imgWidth = Math.floor(width / 3.76);
                 var imgHeight = Math.floor(height / 3.68);
-                var imgTop = Math.floor(height / 1.836);
-                var stepWidth = Math.floor(width / 20.78);
                 $('main img').css({
-                    'top': imgTop,
                     'width': imgWidth,
                     'height': imgHeight
-                });
-                $('main img').each(function (i, dom) {
-                    $(dom).css('left',  stepWidth * (i + 1) + imgWidth * i);
                 });
             }
 
@@ -37,16 +32,33 @@
 </head>
 
 <body class="container-fluid">
+    <header style="width:100%;">
+        <img style="width:100%;height:200px;" src="./images/logo.png">
+    </header>
     <main id="menu">
-        <a href="order.php">
-            <img src="./images/orderBtn.png" alt="點餐系統">
-        </a>
-        <a href="view.html">
-            <img  src="./images/viewBtn.png" alt="查看菜單">
-        </a>
-        <a href="admin.html">
-            <img src="./images/loginBtn.png" alt="管理登入">
-        </a>
+
+        <br style="line-height:100px;">
+
+        <table width="100%" align="center">
+            <tr align="center">
+                <td> <a href="./html/order.php ">
+            <img src="./images/orderBtn.png " alt="點餐系統 ">
+        </a></td>
+
+
+                <td> <a href="./html/view.html ">
+            <img  src="./images/viewBtn.png " alt="查看菜單 ">
+        </a></td>
+
+
+                <td> <a href="./html/admin.html ">
+            <img src="./images/loginBtn.png " alt="管理登入 ">
+        </a></td>
+            </tr>
+        </table>
+
+
+
     </main>
 </body>
 

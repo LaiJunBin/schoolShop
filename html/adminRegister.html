@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>註冊</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../main.css">
+    <script>
+        $(function () {
+            $("#register form")[0].addEventListener('submit', function (e) {
+                var username = reg.username.value;
+                var category = reg.category.value;
+                var password = reg.password.value;
+                var name = reg.name.value;
+                var password2 = reg.passwordAgain.value;
+                var phone = reg.phone.value;
+                var job = reg.job.value;
+                if (password == password2) {
+                    $.ajax({
+                        url: '../php/adminRegister.php',
+                        method: "POST",
+                        data: {
+                            'username': username,
+                            'password': password,
+                            'name': name,
+                            'phone': phone,
+                            'job': job
+                        },
+                        success: function (result) {
+                            alert(result);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
+                } else {
+                    alert('兩次密碼輸入的不一樣');
+                }
+                e.preventDefault();
+            }, false);
+        });
+    </script>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <header style="width:100%;">
+            <img style="width:100%;height:200px;" src="../images/logo.png">
+        </header>
+        <div id="register">
+            <form action="#" method="post" name="reg" class="form-group">
+                新增管理員
+                <table align="center">
+                    <tr>
+                        <td>
+                            <label for="username">帳<span style='user-select:none'>　　　　　</span>號:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" required type="text" name="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="category">姓
+                                <span style='user-select:none'>　　　　　</span>名:</label>
+                        </td>
+                        <td>
+                            <input class="form-control" required type="text" name="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">密
+                                <span style='user-select:none'>　　　　　</span>碼:</label>
+                        </td>
+                        <td>
+                            <input required class="form-control" type="password" name="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="passwordAgain">請再次輸入密碼:</label>
+                        </td>
+                        <td>
+                            <input required class="form-control" type="password" name="passwordAgain">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="phone">請輸入手機號碼:</label>
+                        </td>
+                        <td>
+                            <input required class="form-control" type="text" name="phone">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="job">權
+                                <span style='user-select:none'>　　　　　</span>限:</label>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td><input style="height:20px;width:20px;" checked type="radio" name="job" value="店長">店長</td>
+                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="副店">副店</td>
+                                </tr>
+                                <tr>
+                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="會計">會計</td>
+                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="後台">後台</td>
+                                </tr>
+                            </table>
+
+
+
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-success" type="submit">註冊</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;" align="left">
+                            <a href="../index.html">回首頁</a>
+
+                        </td>
+                        <td style="font-size:12px;" align="right">
+                            <a href="./login.html">回到登入畫面</a>
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

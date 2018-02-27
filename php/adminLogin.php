@@ -8,10 +8,6 @@
     $login = $select->fetch(PDO::FETCH_ASSOC);
     if($login){
         $_SESSION['login']=$login['a_id'].'_'.$login['a_key'];
-        echo "<script>location.href='menager.php'</script>";
-    }else{
-        echo "<script>alert('帳號或密碼錯誤')</script>";
-        echo "<script>location.href='admin.html'</script>";
+        echo 'success';
     }
-
 ?>

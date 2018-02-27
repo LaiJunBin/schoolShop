@@ -10,18 +10,58 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="../main.css">
     <script>
-        // $(function(){
+        $(function () {
+            $("#register form")[0].addEventListener('submit', register, false);
 
-        // });
+            function register(e) {
+                var username = reg.username.value;
+                var category = reg.category.value;
+                var password = reg.password.value;
+                var name = reg.name.value;
+                var password2 = reg.passwordAgain.value;
+                var phone = reg.phone.value;
+                var gender = reg.gender.value;
+                if (password == password2) {
+                    $.ajax({
+                        url: '../php/register.php',
+                        method: "POST",
+                        data: {
+                            'username': username,
+                            'category': category,
+                            'password': password,
+                            'name': name,
+                            'phone': phone,
+                            'gender': gender
+                        },
+                        success: function (result) {
+                            alert(result);
+                            if (reg.admin == undefined)
+                                location.href = './login.html';
+                            // else
+                            //     $("#myModal").modal('hide');
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
+                } else {
+                    alert('兩次密碼輸入的不一樣');
+                }
+                e.preventDefault();
+            }
+        });
     </script>
 </head>
 
 <body>
     <main class="container-fluid">
+        <header style="width:100%;">
+            <img style="width:100%;height:200px;" src="../images/logo.png">
+        </header>
         <div id="register">
-            <form action="register.php" method="post" class="form-group">
+            <form action="#" method="post" name="reg" class="form-group">
                 註冊
                 <table align="center">
                     <tr>
@@ -57,7 +97,8 @@
                         </td>
                         <td>
                             <input style="height:20px;width:20px;" checked type="radio" name="gender" value="男">男
-                            <input style="height:20px;width:20px;" type="radio" name="gender" value="女">女
+
+                            <input style="height:20px;width:20px;margin-left:40px;" type="radio" name="gender" value="女">女
                         </td>
                     </tr>
                     <tr>
@@ -74,7 +115,7 @@
                             <label for="passwordAgain">請再次輸入密碼:</label>
                         </td>
                         <td>
-                            <input required class="form-control" type="text" name="passwordAgain">
+                            <input required class="form-control" type="password" name="passwordAgain">
                         </td>
                     </tr>
                     <tr>
@@ -93,7 +134,7 @@
                         </tr>
                         <tr>
                             <td style="font-size:12px;" align="left">
-                                <a href="./index.html">回首頁</a>
+                                <a href="../index.html">回首頁</a>
 
                             </td>
                             <td style="font-size:12px;" align="right">
