@@ -34,6 +34,8 @@
                         success: function (result) {
                             alert(result);
                             $("#myModal").modal('toggle');
+                            $("#mainTable").load('./menager/adminAdmin.php');
+                            $("form")[0].reset();
                         },
                         error: function (err) {
                             alert(err);
@@ -59,7 +61,10 @@
                 <table align="center">
                     <tr>
                         <td>
-                            <label for="username">帳<span style='user-select:none'>　　　　　</span>號:</label>
+
+                            <div class="textLeft">帳
+                                <div class="textRight">號:</div>
+                            </div>
                         </td>
                         <td>
                             <input class="form-control" required type="text" name="username">
@@ -67,8 +72,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="category">姓
-                                <span style='user-select:none'>　　　　　</span>名:</label>
+                            <div class="textLeft">姓
+                                <div class="textRight">名:</div>
+                            </div>
                         </td>
                         <td>
                             <input class="form-control" required type="text" name="name">
@@ -76,8 +82,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="password">密
-                                <span style='user-select:none'>　　　　　</span>碼:</label>
+
+                            <div class="textLeft">密
+                                <div class="textRight">碼:</div>
+                            </div>
                         </td>
                         <td>
                             <input required class="form-control" type="password" name="password">
@@ -101,25 +109,28 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="job">權
-                                <span style='user-select:none'>　　　　　</span>限:</label>
+
+                            <div class="textLeft">權
+                                <div class="textRight">限:</div>
+                            </div>
                         </td>
                         <td>
-                            <table>
+                            <table align="center">
                                 <tr>
-                                    <td><input style="height:20px;width:20px;" checked type="radio" name="job" value="店長">店長</td>
-                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="副店">副店</td>
-                                </tr>
-                                <tr>
-                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="會計">會計</td>
-                                    <td><input style="height:20px;width:20px;" type="radio" name="job" value="後台">後台</td>
+                                    <td>
+                                        <input style="height:20px;width:20px;" checked type="radio" name="job" value="店長">店長</td>
+                                    <td>
+                                        <td>
+                                            <input style="height:20px;width:20px;" type="radio" name="job" value="會計">會計</td>
+                                        <td>
+                                            <input style="height:20px;width:20px;" type="radio" name="job" value="店員">店員</td>
                                 </tr>
                             </table>
 
 
 
 
-                        </td>
+                            </td>
                     </tr>
 
                     <tr>

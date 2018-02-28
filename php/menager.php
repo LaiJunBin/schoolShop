@@ -18,10 +18,11 @@
     $level = $result['a_level'];
     switch($level){
         case 'root':
+        case '店長':
             include('./menager/admin.php');
             break;
         default:
-            echo 123;
+            echo 'error';
             break;
     }
 ?>

@@ -39,8 +39,11 @@
                             alert(result);
                             if (reg.admin == undefined)
                                 location.href = './login.html';
-                            else
+                            else {
                                 $("#myModal").modal('toggle');
+                                $("#mainTable").load('./menager/adminUser.php');
+                                $("form")[0].reset();
+                            }
                         },
                         error: function (err) {
                             alert(err);
@@ -74,8 +77,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="category">科
-                                <span style='user-select:none'>　　　　　</span>別:</label>
+                            <div class="textLeft">科
+                                <div class="textRight">別:</div>
+                            </div>
+
                         </td>
                         <td>
                             <input class="form-control" required type="text" name="category">
@@ -83,8 +88,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="category">姓
-                                <span style='user-select:none'>　　　　　</span>名:</label>
+
+                            <div class="textLeft">姓
+                                <div class="textRight">名:</div>
+                            </div>
                         </td>
                         <td>
                             <input class="form-control" required type="text" name="name">
@@ -92,8 +99,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="gender">性
-                                <span style='user-select:none'>　　　　　</span>別:</label>
+
+                            <div class="textLeft">性
+                                <div class="textRight"> 別:</div>
+                            </div>
                         </td>
                         <td>
                             <input style="height:20px;width:20px;" checked type="radio" name="gender" value="男">男
@@ -103,8 +112,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="password">密
-                                <span style='user-select:none'>　　　　　</span>碼:</label>
+
+                            <div class="textLeft">密
+                                <div class="textRight">碼:</div>
+                            </div>
                         </td>
                         <td>
                             <input required class="form-control" type="password" name="password">

@@ -7,10 +7,21 @@ body {
 
 form {
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
     line-height: 50px;
 }
 
 form button {
+    width: 100%;
+}
+
+.textLeft {
+    text-align: left;
+    width: 100%;
+    display: inline-flex;
+}
+
+.textRight {
+    text-align: right;
     width: 100%;
 }

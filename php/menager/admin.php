@@ -12,36 +12,60 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../main.css">
     <script>
-        function checkDel() {
+        function checkDel(uri) {
+            activeUri = {
+                'uri':'',
+                'mainTableUri':''
+            };
+            getUri($(".btn-group .active").data('tit'),activeUri);
             if (confirm('確定刪除這個帳戶嗎?')) {
-                return true;
+                $.ajax({
+                    url:uri,
+                    method:'GET',
+                    success:function(result){
+                        $("#mainTable").load(activeUri.mainTableUri);
+                        alert('刪除成功');
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                });
+                return false;
             }
             return false;
         }
+        function getUri(target,uriObj){
+            switch (target){
+                case '帳戶':
+                    uriObj.uri = '../html/register.html';
+                    uriObj.mainTableUri='./menager/adminUser.php';
+                    break;
+                case '管理員':
+                    uriObj.uri = '../html/adminRegister.html';
+                    uriObj.mainTableUri='./menager/adminAdmin.php';
+                    break;
+                case '回首頁':
+                    location.href="../index.html";
+                    break;
+                default:
+                    alert('error');
+                    break;
+            }
+        }
         $(function () {
             $(".btn-group .btn").click(function () {
-                var uri = '';
-                var mainTableUri = '';
+                var uriObj = {
+                    'uri':'',
+                    'mainTableUri':''
+                };
                 $('.btn-group .btn').removeClass('active');
                 $(this).addClass('active');
                 $("header span:nth-child(1)").text($(this).text());
                 $("header button").text('新增' + $(this).data('tit'));
-                switch ($(this).data('tit')){
-                    case '帳戶':
-                        uri = '../html/register.html';
-                        mainTableUri='./menager/adminUser.php';
-                        break;
-                    case '管理員':
-                        uri = '../html/adminRegister.html';
-                        mainTableUri='./menager/adminAdmin.php';
-                        break;
-                    default:
-                        alert('error');
-                        break;
-                }
+                getUri($(this).data('tit'),uriObj);
                 $("#myModalTitle").text('新增' + $(this).data('tit'));
-                loadForm(uri);
-                $("#mainTable").load(mainTableUri);
+                loadForm(uriObj.uri);
+                $("#mainTable").load(uriObj.mainTableUri);
             });
             $("#myModalBtn").click(function () {
                 $("#myModal").modal('toggle');
@@ -73,7 +97,7 @@
         </header>
         <div id="userAdmin">
             <nav class="btn-group">
-                <button class="btn btn-default">
+                <button class="btn btn-default" data-tit="回首頁">
                     <a href="../index.html" style="display:block;color:#000;text-decoration:none;">回首頁</a>
                 </button>
                 <button class="btn btn-default active" data-tit="帳戶">帳戶管理</button>
