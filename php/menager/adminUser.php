@@ -1,3 +1,4 @@
+<table border="1" align="center" style="width:100%">
 <?php
     include_once("../pdoLink.php");
     $result=$db->prepare("SELECT * FROM user");
@@ -28,7 +29,7 @@
         ?>
         <td width="20%">
             <a href="#" onclick="return checkDel('menager/deleteUser.php?id=<?php echo $record['u_id'];?>')">
-                <button type="button">刪除帳戶</button>
+                <button type="button" class="btn btn-danger">刪除帳戶</button>
             </a>
         </td>
         <?php
@@ -38,3 +39,4 @@
         echo "沒有帳戶";
     }
 ?>
+</table>

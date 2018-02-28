@@ -1,6 +1,8 @@
+<table border="1" align="center" style="width:100%">
 <?php
     include_once("../pdoLink.php");
-    session_start();
+    if(!isset($_SESSION))
+        session_start();
     $result=$db->prepare("SELECT * FROM admin");
     $result->execute();
     $recordEmpty=true;
@@ -31,7 +33,7 @@
                 無法刪除
             <?php }else{ ?>
                 <a href="#" onclick="return checkDel('menager/deleteAdmin.php?id=<?php echo $record['a_id'];?>')">
-                    <button type="button">刪除帳戶</button>
+                    <button type="button" class="btn btn-danger">刪除帳戶</button>
                 </a>
             <?php } ?>
         </td>
@@ -42,3 +44,4 @@
         echo "沒有管理員";
     }
 ?>
+</table>

@@ -36,6 +36,22 @@
                 });
                 e.preventDefault();
             }, false);
+            $.ajax({
+                url: '../php/checkAdmin.php',
+                method: "POST",
+                data: {
+                    'login': '1'
+                },
+                success: function (result) {
+                    // console.log(result);
+                    if (result == 'true') {
+                        location.href = "../php/menager.php";
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
         });
     </script>
 </head>

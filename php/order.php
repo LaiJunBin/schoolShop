@@ -1,8 +1,7 @@
 <?php
     session_start();
-    session_unset();
     if(!isset($_SESSION['login'])){
-        header('location:login.html');
+        header('location:../html/login.html');
     }
 ?>
 <!DOCTYPE html>
@@ -19,6 +18,11 @@
     <link rel="stylesheet" href="../main.css">
 </head>
 <body>
-
+    <main class="container-fluid">
+        <header style="width:100%;">
+            <img style="width:100%;height:200px;" src="../images/logo.png">
+        </header>
+    </main>
+    
 </body>
 </html>

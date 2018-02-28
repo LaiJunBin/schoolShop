@@ -2,7 +2,7 @@
     session_start();
     include('./pdoLink.php');
     if(!isset($_SESSION['login'])){
-        header('location:index.html');
+        header('location:../index.html');
         exit();
     }
     $login = $_SESSION['login'];

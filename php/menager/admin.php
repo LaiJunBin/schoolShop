@@ -47,6 +47,10 @@
                 case '回首頁':
                     location.href="../index.html";
                     break;
+                case '產品':
+                    uriObj.uri = './menager/addProduct.php';
+                    uriObj.mainTableUri='./menager/product.php';
+                    break;
                 default:
                     alert('error');
                     break;
@@ -102,6 +106,7 @@
                 </button>
                 <button class="btn btn-default active" data-tit="帳戶">帳戶管理</button>
                 <button class="btn btn-default" data-tit="管理員">管理員管理</button>
+                <button class="btn btn-default" data-tit="產品">新增產品</button>
             </nav>
             <header>
                 <span>帳戶管理</span>
@@ -109,10 +114,9 @@
                     <button class="btn btn-default" id="myModalBtn">新增帳戶</button>
                 </span>
             </header>
-            <div style="font-size:24px;">
-                <table border="1" id="mainTable" align="center" style="width:50%">
-                    
-                </table>
+            <div style="font-size:14px;" id="mainTable">
+                
+
             </div>
         </div>
     </main>
