@@ -91,6 +91,7 @@
                         <th>數量</th>
                         <th style="text-align:right;">合計</th>
                         <?php
+                            $totalCoin = 0;
                             $sql = 'select * from order_table where o_code = :code';
                             $time = '';
                             $orderSelect = $db->prepare($sql);
@@ -103,6 +104,7 @@
                             $statusObj = $status->fetch(PDO::FETCH_ASSOC);
                             while($order = $orderSelect->fetch(PDO::FETCH_ASSOC)){
                                 $time = $order['o_reserve'];
+                                $totalCoin += $order['o_price'] * $order['o_amount'];
                         ?>
                         <tr>
                             <td><?php echo $order['o_item'];?></td>
@@ -112,6 +114,16 @@
                             <td><?php echo $order['o_price'] * $order['o_amount'];?></td>
                         </tr>
                             <?php } ?>
+                            <tr>
+                                <td><br></td>
+                            </tr>
+                            <tr style="width:100%;">
+                                <td colspan="4" style="text-align:left">總計金額:</td>
+                                <td  style="text-align:center"><?php echo $totalCoin;?></td>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr>
                         </table>
                         <div>預約取餐時間在 <?php echo $time;?></div>
                         <div>當前訂單狀態:<?php echo $statusObj['o_status'];?></div>
