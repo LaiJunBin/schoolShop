@@ -153,6 +153,7 @@
                         $.ajax({
                             url:'./orderProcess.php',
                             method:'POST',
+                            async:false,
                             data:{
                                 'code':maxCode,
                                 'reserve':reserve,
@@ -162,18 +163,19 @@
                                 'item':key
                             },
                             success:function(result){
-                                $("#orderModal").modal('hide');
-                                data.clear();
-                                $('[id^=productNumber]').text(0);
-                                loadOrderView();
-                                $("#myOrderView").modal('toggle');
+                                
                             }
                             ,error:function(err){
                                 console.log(err);
                             }
                         })
                     }
-                })
+                });
+                $("#orderModal").modal('hide');
+                data.clear();
+                $('[id^=productNumber]').text(0);
+                loadOrderView();
+                $("#myOrderView").modal('toggle');
             });
             $("#myOrderBtn").click(function(){
                 $("#myOrderView").modal('toggle');
