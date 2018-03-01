@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../main.css">
+    <script src="../main.js"></script>
     <script>
         var data = new Map();
         $(function(){
@@ -310,7 +311,6 @@
                         <option value="第1節下課(9:00)">第1節下課(9:00)</option>
                         <option value="第2節下課(10:00)">第2節下課(10:00)</option>
                         <option value="第3節下課(11:00)">第3節下課(11:00)</option>
-                        <option value="第4節下課(12:00)">第4節下課(12:00)</option>
                         <option value="第5節下課(1:00)">第5節下課(1:00)</option>
                         <option value="第6節下課(2:00)">第6節下課(2:00)</option>
                         <option value="第7節下課(3:00)">第7節下課(3:00)</option>
@@ -366,7 +366,7 @@
                                             <?php
                                                 if($orderStatus['o_status']=='已完成'){ ?>
                                                     <button type="button" class="btn btn-info writeProblem" va="<?php echo $code;?>">填問卷</button>
-                                                    <div class="modal fade" id="problem<?php echo $code;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div style="height: 100vh;" class="modal fade" id="problem<?php echo $code;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
