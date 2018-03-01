@@ -22,11 +22,14 @@
         <span style="font-size:20px;">
                     <button class="btn btn-default" id="myModalBtn">回首頁</button>
                 </span></a>
-
+        <a href="./order.php">
+                <span style="font-size:20px;">
+                            <button class="btn btn-success">前往訂餐</button>
+                </span></a>
                 <div style="width:100%;text-align:center;font-size:30px;">查看菜單</div>
                 
             </header><hr>
-        <table border="1" align="center" style="width:100%">
+        <table align="center" style="width:100%">
 <?php
     if(empty($_SESSION))
         session_start();
@@ -39,11 +42,11 @@
         echo "<tr align=center>";
         echo "<td colspan=4 style=font-size:20px;color:red;>-----".$category."-----</td>";
         echo "</tr>";
-        $select = $db->prepare('select * from product where p_category = :category');
-        $select->bindValue(':category',$category);
-        $select->execute();
+        $selectProduct = $db->prepare('select * from product where p_category = :category');
+        $selectProduct->bindValue(':category',$category);
+        $selectProduct->execute();
         $n = 1;
-        while($row = $select->fetch(PDO::FETCH_ASSOC)){ 
+        while($row = $selectProduct->fetch(PDO::FETCH_ASSOC)){
         ?>
             <tr>
                 <td><?php echo $n.'.';?></td>

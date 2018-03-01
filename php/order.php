@@ -17,6 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../main.css">
     <script>
+        var data = new Map();
         $(function(){
             $('tr[class^=items]').hide();
             $(".keysTr").click(function(){
@@ -24,22 +25,28 @@
                 $('tr[class^=items]').hide();
                 $(".items_"+id).slideToggle();
             });
-            var data = new Map();
+            // var data = new Map();
             $("#adModal").modal('toggle');
             $("[id^=orderBtn]").click(function(){
                 var n = $(this).data('id');
                 var title = $("#productTitle"+n).text();
+                var isOrder = false;
                 data.set(title,[]);
                 $("[id^=productNumber"+n+'_]').each(function(){
                     var item = $(this).parent().attr('id').split('_');
-                    data.get(title).push({
-                        'item':item[0],
-                        'price':item[1],
-                        'amount':$(this).text(),
-                        'total':$(this).text()*item[1]
-                    });
-                    
+                    if(parseInt($(this).text())>0){
+                        data.get(title).push({
+                            'item':item[0],
+                            'price':item[1],
+                            'amount':$(this).text(),
+                            'total':$(this).text()*item[1]
+                        });
+                    }
+                    if(parseInt($(this).text())>0)
+                        isOrder = true;
                 });
+                if(!isOrder)
+                    data.delete(title);
                 console.log(data);
                 $("#product"+n).modal('hide');
             });
@@ -66,6 +73,49 @@
                         $('#productNumber'+n+'_').text(amount+value);
                 }
             }
+            $("#orderSubmitBtn").click(function(){
+                if(data.size == 0 ){
+                    alert('訂單是空的!請先選擇商品');
+                }else{
+                    var total = 0;
+                    data.forEach(function(values,key){
+                        for(value of values){
+                            var tr = document.createElement('tr');
+                            var td = document.createElement('td');
+                            td.innerText = key;
+                            tr.append(td);
+                            for(item in value){
+                                var td = document.createElement('td');
+                                td.innerText = value[item];
+                                if(item =='total')
+                                    $(td).css('text-align','right');
+                                tr.append(td);
+                            }
+                            total += value.total;
+                            $("#orderTable").append(tr);
+                        }
+                    });
+                     $("#orderTable").append('<tr><td><br></td></tr><tr><td>總計金額</td><td style=text-align:right colspan=4>'+total+'</td></tr>')
+
+
+                    $("#orderModal").modal('toggle');
+                }
+            });
+            $("#submitOrderBtn").click(function(){
+                // 確定訂餐
+            });
+            $("#myOrderBtn").click(function(){
+                $("#myOrderView").modal('toggle');
+                
+            });
+            $(".orderRecordBtn").click(function(){
+                var n = $(this).attr('va');
+                $("#orderRecord"+n).modal('toggle');
+            });
+            $(".closeOrder").click(function(){
+                var n = $(this).attr('va');
+                $("#orderRecord"+n).modal('toggle');
+            })
         });
     </script>
 </head>
@@ -74,8 +124,15 @@
         <header style="width:100%;">
             <img style="width:100%;height:200px;" src="../images/logo.png">
         </header>
+        <a href="../index.html">
+        <span style="font-size:20px;">
+            <button class="btn btn-default">回首頁</button>
+        </span></a>
+        <span style="font-size:20px;">
+            <button class="btn btn-warning" id="myOrderBtn">查看我的訂單</button>
+        </span></a>
     </main>
-    <table border="1" align="center" style="width:100%">
+    <table align="center" style="width:100%">
 <?php
     if(empty($_SESSION))
         session_start();
@@ -86,7 +143,9 @@
     {
         $category =$record['p_category'];
         echo "<tr align=center id=$category class=keysTr>";
-        echo "<td colspan=4 style=font-size:20px;color:red;>-----".$category."-----</td>";
+        ?>
+            <td colspan=4 style=font-size:20px;color:red;><button class="btn btn-info" style="margin:10px 0;">-----<?php echo $category;?>-----</button></td>
+        <?php
         echo "</tr>";
         $select = $db->prepare('select * from product where p_category = :category');
         $select->bindValue(':category',$category);
@@ -169,7 +228,7 @@
 ?>
 <tr>
     <td colspan="4">
-        <button type="button" class="btn btn-primary" style="width:100%;">查看訂單=>結帳</button>
+        <button type="button" class="btn btn-primary" id="orderSubmitBtn" style="width:100%;">查看訂單=>結帳</button>
     </td>
 </tr>
 </table>
@@ -216,6 +275,125 @@
                         }
                     ?><br>
                     <button style="width:100%;" class="btn btn-success" onclick="$('#adModal').modal('hide');$('[modalType=ad]').modal('toggle')">前往訂購</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">確認訂單資訊</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="orderTable" style="width:100%;text-align:center;">
+                        <th>品項</th>
+                        <th>種類</th>
+                        <th>價錢</th>
+                        <th>數量</th>
+                        <th style="text-align:right;">合計</th>
+                    </table>
+                    預約取餐時間<select name="reserveTime" class="form-control">
+                        <option value="第1節下課(9:00)">第1節下課(9:00)</option>
+                        <option value="第2節下課(10:00)">第2節下課(10:00)</option>
+                        <option value="第3節下課(11:00)">第3節下課(11:00)</option>
+                        <option value="第4節下課(12:00)">第4節下課(12:00)</option>
+                        <option value="第5節下課(1:00)">第5節下課(1:00)</option>
+                        <option value="第6節下課(2:00)">第6節下課(2:00)</option>
+                        <option value="第7節下課(3:00)">第7節下課(3:00)</option>
+                    </select>
+                    <button style="width:100%;" id="submitOrderBtn" class="btn btn-success">確定訂購</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myOrderView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">我的訂單</h4>
+                </div>
+                <div class="modal-body">
+                    
+                        <?php
+                            include_once('./pdoLink.php');
+                            $user = $_SESSION['loginUser'];
+                            $sql = 'select Distinct(o_code) from order_table where o_user = :user';
+                            $select = $db->prepare($sql);
+                            $select->bindValue(':user',$user);
+                            $select->execute();
+                            while ($code = $select->fetch(PDO::FETCH_ASSOC)['o_code']){
+                                ?>
+                                <table style="width:100%;text-align:center;">
+                                    <th>訂單編號</th>
+                                    <th>詳細</th>
+                                    <tr>
+                                        <td><?php echo $code;?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-success orderRecordBtn" va="<?php echo $code;?>">詳細</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="height:100vh;" class="modal fade" id="orderRecord<?php echo $code;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"  aria-label="Close">
+                                                    <span aria-hidden="true" va="<?php echo $code;?>" class="closeOrder">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title">訂單編號 <?php echo $code;?></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table id="orderTable" style="width:100%;text-align:center;">
+                                                <th>品項</th>
+                                                <th>種類</th>
+                                                <th>價錢</th>
+                                                <th>數量</th>
+                                                <th style="text-align:right;">合計</th>
+                                                <?php
+                                                    $sql = 'select * from order_table where o_code = :code';
+                                                    $time = '';
+                                                    $orderSelect = $db->prepare($sql);
+                                                    $orderSelect->bindValue(':code',$code);
+                                                    $orderSelect->execute();
+                                                    $sql = 'select * from order_status where o_code = :code';
+                                                    $status = $db->prepare($sql);
+                                                    $status->bindValue(":code",$code);
+                                                    $status->execute();
+                                                    $statusObj = $status->fetch(PDO::FETCH_ASSOC);
+                                                    while($order = $orderSelect->fetch(PDO::FETCH_ASSOC)){
+                                                        $time = $order['o_reserve'];
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $order['o_item'];?></td>
+                                                    <td><?php echo $order['o_other'];?></td>
+                                                    <td><?php echo $order['o_price'];?></td>
+                                                    <td><?php echo $order['o_amount'];?></td>
+                                                    <td><?php echo $order['o_price'] * $order['o_amount'];?></td>
+                                                </tr>
+                                                 <?php } ?>
+                                                </table>
+                                                <div>預約取餐時間在 <?php echo $time;?></div>
+                                                <div>當前訂單狀態:<?php echo $statusObj['o_status'];?></div>
+                                                <?php if($statusObj['o_pay']=='T'){ ?>
+                                                    <div style="color:blue">已付款</div>
+                                                <?php }else{ ?>
+                                                    <div style="color:red;">未付款</div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        ?>
+                    
                 </div>
             </div>
         </div>

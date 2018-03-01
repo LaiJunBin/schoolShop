@@ -8,6 +8,7 @@
     $login = $select->fetch(PDO::FETCH_ASSOC);
     if($login){
         $_SESSION['login']=$login['a_id'].'_'.$login['a_key'];
+        $_SESSION['loginUser'] = $login['a_name'];
         echo 'success';
     }
 ?>

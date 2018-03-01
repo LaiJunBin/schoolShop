@@ -51,6 +51,14 @@
                     uriObj.uri = './menager/addProduct.php';
                     uriObj.mainTableUri='./menager/product.php';
                     break;
+                case '訂單':
+                    uriObj.uri = '';
+                    uriObj.mainTableUri='./menager/order.php';
+                    break;
+                case '問卷':
+                    uriObj.uri = './menager/addProblem.php';
+                    uriObj.mainTableUri='./menager/problem.php';
+                    break;
                 default:
                     alert('error');
                     break;
@@ -68,8 +76,13 @@
                 $("header button").text('新增' + $(this).data('tit'));
                 getUri($(this).data('tit'),uriObj);
                 $("#myModalTitle").text('新增' + $(this).data('tit'));
-                loadForm(uriObj.uri);
+                if(uriObj.uri !='')
+                    loadForm(uriObj.uri);
                 $("#mainTable").load(uriObj.mainTableUri);
+                if(uriObj.uri=='')
+                    $('#myModalBtn').css('display','none');
+                else
+                    $("#myModalBtn").css('display','block');
             });
             $("#myModalBtn").click(function () {
                 $("#myModal").modal('toggle');
@@ -106,7 +119,11 @@
                 </button>
                 <button class="btn btn-default active" data-tit="帳戶">帳戶管理</button>
                 <button class="btn btn-default" data-tit="管理員">管理員管理</button>
-                <button class="btn btn-default" data-tit="產品">新增產品</button>
+                <button class="btn btn-default" data-tit="產品">新增產品</button><br>
+                <div style="text-align:center;">
+                <button class="btn btn-default" data-tit="訂單">訂單管理</button>
+                <button class="btn btn-default" data-tit="問卷">問卷管理</button>
+                </div><br>
             </nav>
             <header>
                 <span>帳戶管理</span>
