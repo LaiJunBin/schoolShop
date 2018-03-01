@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2018-03-01 08:01:17
--- 伺服器版本: 10.1.28-MariaDB
--- PHP 版本： 7.1.11
+-- 產生時間： 2018-03-01 16:39:37
+-- 伺服器版本: 10.1.30-MariaDB
+-- PHP 版本： 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -56,8 +56,8 @@ INSERT INTO `admin` (`a_id`, `a_name`, `a_username`, `a_password`, `a_phone`, `a
 
 CREATE TABLE `order_status` (
   `o_code` varchar(100) NOT NULL,
-  `o_status` varchar(100) NOT NULL,
-  `o_pay` varchar(1) NOT NULL
+  `o_status` varchar(100) NOT NULL DEFAULT '新訂單',
+  `o_pay` varchar(1) NOT NULL DEFAULT 'F'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -95,7 +95,9 @@ INSERT INTO `order_table` (`o_id`, `o_user`, `o_code`, `o_item`, `o_price`, `o_a
 (1, 'admin', '20180301001', '珍珠冬瓜鮮奶茶', '25', '2', '一般', '2018-03-01 09:16:06', '第3節下課(11:00)'),
 (2, 'admin', '20180301001', '奶酥', '20', '1', '厚片', '2018-03-01 09:16:06', '第3節下課(11:00)'),
 (3, 'admin', '20180301002', '奶酥', '15', '3', '薄片', '2018-03-01 09:29:06', '第2節下課(10:00)'),
-(4, '小明', '20180301003', '冬瓜檸檬茶', '15', '2', '中杯', '2018-03-01 11:29:06', '第5節下課(1:00)');
+(8, 'admin', '20180301003', '珍珠冬瓜鮮奶茶', '25', '3', '一般', '2018-03-01 23:30:40', '第7節下課(3:00)'),
+(9, 'admin', '20180301003', '冬瓜茶', '20', '3', '大杯', '2018-03-01 23:30:40', '第7節下課(3:00)'),
+(10, 'admin', '20180301003', '冬瓜茶', '15', '1', '中杯', '2018-03-01 23:30:40', '第7節下課(3:00)');
 
 -- --------------------------------------------------------
 
@@ -328,7 +330,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`u_id`, `u_name`, `u_username`, `u_category`, `u_gender`, `u_password`, `u_phone`) VALUES
 (7, 'ada', 'fasf', 'asasfa', '男', '123', 'ed'),
-(8, 'adm', '12345', 'dddd', '男', '12345', '09876543');
+(8, 'adm', '12345', 'dddd', '男', '12345', '09876543'),
+(9, '1234', '1234', '1234', '男', '1234', '1234');
 
 --
 -- 已匯出資料表的索引
@@ -396,7 +399,7 @@ ALTER TABLE `admin`
 -- 使用資料表 AUTO_INCREMENT `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `o_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `o_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- 使用資料表 AUTO_INCREMENT `problem`
@@ -426,7 +429,7 @@ ALTER TABLE `product_category`
 -- 使用資料表 AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `u_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `u_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
