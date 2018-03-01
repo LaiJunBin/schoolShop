@@ -8,6 +8,7 @@
     $login = $select->fetch(PDO::FETCH_ASSOC);
     if($login){
         $_SESSION['login']=$login['u_username'];
+        $_SESSION['loginUser'] = $login['a_name'];
         header('location:./order.php');
     }
 ?>

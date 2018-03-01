@@ -29,6 +29,34 @@
 
             layout();
 
+            $.ajax({
+                url: './php/isLogin.php',
+                success: function (result) {
+                    if (result == "T") {
+                        logoutBtn =
+                            '<button class="btn btn-danger" style="text-align:center" id="logoutBtn">登出</button>';
+                        $("footer").append(logoutBtn);
+                        $("#logoutBtn").click(function () {
+                            console.log(1);
+                            $.ajax({
+                                url: './php/logout.php',
+                                method: 'GET',
+                                success: function (result) {
+                                    alert(result);
+                                    location.reload();
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        });
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+
         });
     </script>
 </head>
@@ -66,7 +94,9 @@
         </table>
 
 
+        <footer class="container-fluid" style="position:fixed;bottom:0;width:90%;height:45px">
 
+        </footer>
     </main>
 </body>
 

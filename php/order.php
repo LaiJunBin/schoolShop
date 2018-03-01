@@ -17,6 +17,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../main.css">
     <script src="../main.js"></script>
+    <style>
+        .fade.in{
+            overflow-y:scroll;
+        }
+    </style>
     <script>
         var data = new Map();
         $(function(){
