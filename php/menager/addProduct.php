@@ -169,7 +169,7 @@
             <img style="width:100%;height:200px;" src="../images/logo.png">
         </header>
         <div id="register">
-            <form action="#" method="post" name="reg" class="form-group">
+            <form style="overflow: hidden;" action="#" method="post" name="reg" class="form-group">
                 新增產品
                 <table align="center">
                     <tr>

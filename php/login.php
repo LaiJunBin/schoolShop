@@ -10,5 +10,8 @@
         $_SESSION['login']=$login['u_username'];
         $_SESSION['loginUser'] = $login['a_name'];
         header('location:./order.php');
+    }else{
+        echo "<script>alert('帳號或密碼錯誤');history.go(-1)</script>";
+
     }
 ?>
