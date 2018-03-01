@@ -3,7 +3,7 @@
     include('./pdoLink.php');
     $select = $db->prepare('select * from admin where a_username =:username and a_password = :password');
     $select->bindValue(':username',$_POST['username']);
-    $select->bindValue(':password',$_POST['password']);
+    $select->bindValue(':password',md5($_POST['password']));
     $select->execute();
     $login = $select->fetch(PDO::FETCH_ASSOC);
     if($login){
