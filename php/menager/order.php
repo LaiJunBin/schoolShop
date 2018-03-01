@@ -9,12 +9,28 @@
     while ($code = $select->fetch(PDO::FETCH_ASSOC)['o_code']){
         ?>
         <table style="width:100%;text-align:center;">
+            <th>狀態</th>
             <th>訂單編號</th>
             <th>詳細</th>
             <tr>
+                <td>
+                    <?php 
+                        $sql = 'select * from order_status where o_code = :code';
+                        $orderStatus = $db->prepare($sql);
+                        $orderStatus->bindValue(':code',$code);
+                        $orderStatus->execute();
+                        $orderStatus = $orderStatus->fetch(PDO::FETCH_ASSOC);
+                        echo $orderStatus['o_status'];
+                        if($orderStatus['o_pay']=='T'){ ?>
+                            <div style="color:blue">已付款</div>
+                        <?php }else{ ?>
+                            <div style="color:red;" class="payDiv<?php echo $code;?>">未付款</div>
+                        <?php }
+                    ?>
+                </td>
                 <td><?php echo $code;?></td>
                 <td>
-                    <button type="button" class="btn btn-success orderRecordBtn" va="<?php echo $code;?>">詳細</button>
+                    <button type="button" class="btn btn-success orderRecordBtn" va="<?php echo $code;?>">詳細/修改</button>
                 </td>
             </tr>
         </table>
@@ -58,11 +74,26 @@
                             <?php } ?>
                         </table>
                         <div>預約取餐時間在 <?php echo $time;?></div>
-                        <div>當前訂單狀態:<?php echo $statusObj['o_status'];?></div>
+                        <div>當前訂單狀態:<?php echo $statusObj['o_status'];?>
+                        </div>
+                        <div>
+                            更改訂單狀態<select id="orderStatusSelect<?php echo $code?>">
+                                <option value="新訂單">新訂單</option>
+                                <option value="備餐中">備餐中</option>
+                                <option value="可取餐">可取餐</option>
+                                <option value="已完成">已完成</option>
+                            </select>
+                            <script>
+                                $("#orderStatusSelect<?php echo $code;?> option[value=<?php echo $statusObj['o_status'];?>]").prop('selected',true);
+                            </script>
+                        </div>
                         <?php if($statusObj['o_pay']=='T'){ ?>
                             <div style="color:blue">已付款</div>
                         <?php }else{ ?>
-                            <div style="color:red;">未付款</div>
+                            <div style="color:red;" class="payDiv<?php echo $code;?>">未付款<button type="button" class="btn btn-warning" onclick="payOn(<?php echo $code;?>)">變更為已付款</button></div>
+                            
+                            
+                            
                         <?php } ?>
                     </div>
                 </div>
@@ -76,4 +107,23 @@ $(".orderRecordBtn").click(function(){
     var n = $(this).attr('va');
     $("#orderRecord"+n).modal('toggle');
 });
+function payOn(id){
+    if(confirm('確定嗎?確認後無法再更改!')){
+        $.ajax({
+            url:'./menager/changePay.php',
+            data:{
+                'code':id
+            },
+            method:'POST',
+            success:function(result){
+                $(".payDiv"+id).html('已付款').css('color','blue');
+                alert('變更成功!');
+
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+    }
+}
 </script>

@@ -78,6 +78,12 @@
                     alert('訂單是空的!請先選擇商品');
                 }else{
                     var total = 0;
+                    var temp = '<th>品項</th>'+
+                        '<th>種類</th>'+
+                        '<th>價錢</th>'+
+                        '<th>數量</th>'+
+                        '<th style="text-align:right;">合計</th>';
+                    $("#orderTable").html(temp);
                     data.forEach(function(values,key){
                         for(value of values){
                             var tr = document.createElement('tr');
@@ -115,7 +121,15 @@
             $(".closeOrder").click(function(){
                 var n = $(this).attr('va');
                 $("#orderRecord"+n).modal('toggle');
-            })
+            });
+            $(".writeProblem").click(function(){
+                var n = $(this).attr('va');
+                $('#problem'+n).modal('toggle');
+            });
+            $(".closeProblem").click(function(){
+                var n = $(this).attr('va');
+                $("#problem"+n).modal('toggle');
+            });
         });
     </script>
 </head>
@@ -290,11 +304,7 @@
                 </div>
                 <div class="modal-body">
                     <table id="orderTable" style="width:100%;text-align:center;">
-                        <th>品項</th>
-                        <th>種類</th>
-                        <th>價錢</th>
-                        <th>數量</th>
-                        <th style="text-align:right;">合計</th>
+                        
                     </table>
                     預約取餐時間<select name="reserveTime" class="form-control">
                         <option value="第1節下課(9:00)">第1節下課(9:00)</option>
@@ -331,12 +341,67 @@
                             while ($code = $select->fetch(PDO::FETCH_ASSOC)['o_code']){
                                 ?>
                                 <table style="width:100%;text-align:center;">
+                                    <th>狀態</th>
                                     <th>訂單編號</th>
-                                    <th>詳細</th>
+                                    <th width="40%">詳細</th>
                                     <tr>
+                                        <td>
+                                            <?php 
+                                                $sql = 'select * from order_status where o_code = :code';
+                                                $orderStatus = $db->prepare($sql);
+                                                $orderStatus->bindValue(':code',$code);
+                                                $orderStatus->execute();
+                                                $orderStatus = $orderStatus->fetch(PDO::FETCH_ASSOC);
+                                                echo $orderStatus['o_status'];
+                                                if($orderStatus['o_pay']=='T'){ ?>
+                                                    <div style="color:blue">已付款</div>
+                                                <?php }else{ ?>
+                                                    <div style="color:red;" class="payDiv<?php echo $code;?>">未付款</div>
+                                                <?php }
+                                            ?>
+                                        </td>
                                         <td><?php echo $code;?></td>
                                         <td>
                                             <button type="button" class="btn btn-success orderRecordBtn" va="<?php echo $code;?>">詳細</button>
+                                            <?php
+                                                if($orderStatus['o_status']=='已完成'){ ?>
+                                                    <button type="button" class="btn btn-info writeProblem" va="<?php echo $code;?>">填問卷</button>
+                                                    <div class="modal fade" id="problem<?php echo $code;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close closeProblem" va="<?php echo $code;?>" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title">填寫問卷</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <?php
+                                                                        $sql = 'select * from problem';
+                                                                        $problemQuery = $db->prepare($sql);
+                                                                        $problemQuery->execute();
+                                                                        while($problem = $problemQuery->fetch(PDO::FETCH_ASSOC)){
+                                                                            $title = $problem['p_title'];
+                                                                            $optionData = $problem['p_option'];
+                                                                            $data = explode(',',$optionData);
+                                                                            echo "<div>$title ：</div>";
+                                                                            foreach($data as $opt){
+                                                                            ?>
+                                                                                <input type="radio"<?php if($opt==$data[0]){ ?> required <?php } ?> name="<?php echo $title;?>"><?php echo $opt;?>
+
+                                                                        <?php
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                    
+                                                                    <button type="button" style="width:100%;" class="btn btn-primary">送出問卷</button>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                               <?php }
+                                            ?>
                                         </td>
                                     </tr>
                                 </table>
@@ -350,7 +415,7 @@
                                                 <h4 class="modal-title">訂單編號 <?php echo $code;?></h4>
                                             </div>
                                             <div class="modal-body">
-                                                <table id="orderTable" style="width:100%;text-align:center;">
+                                                <table style="width:100%;text-align:center;">
                                                 <th>品項</th>
                                                 <th>種類</th>
                                                 <th>價錢</th>
